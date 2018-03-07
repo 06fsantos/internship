@@ -83,10 +83,13 @@ TTAGAAACTGATCAAAAACATTAAAAA', msg = 'Error: does not recognise different sequenc
         codon = 'ACG'
         self.assertEqual(useful.count_codons(sequence, codon), 3, msg = 'Error: incorrect count')
         self.assertNotEqual(useful.count_codons(sequence, codon), 4, msg = 'Error: counting too many codons' )
+        ######### check if only counts nucleotides in frame ########
         sequence = 'ATCATGAACGGCAACATAACG' 
         codon = 'AAC'
-        ######### check if only counts nucleotides in frame ########
         self.assertEqual(useful.count_codons(sequence, codon), 2, 'Error: counting nucleotides out of frame')  
+        ######## check if stop codon breaks the loop 
+        sequence = 'ATGAACAACTAAAAC'
+        self.assertEqual(useful.count_codons(sequence, codon), 2, 'Error: Stop codon not recognised')
 
     def test_clean_seq(self):
         sequence = 'aacggttaa'

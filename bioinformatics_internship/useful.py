@@ -42,11 +42,8 @@ def count_codons(sequence, codon):
                     break
                 elif seq[j:j+3] == codon:
                     codon_count += 1
+                    ########## test stop codon ########
     return codon_count 
-
-
-                
-        
         
         
         
