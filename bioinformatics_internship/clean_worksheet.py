@@ -6,9 +6,9 @@ Created on 7 Mar 2018
 import pandas as pd
 import useful
 
-file_out = 'cl_Mock_vs_Wt_up.xlsx'
+file_out = 'cl_Mock_vs_Ala_up.xlsx' ###### redo: cl Ala up
 file_name = 'cell_lines.xlsx'
-sheet = 'Mock vs Wt up'
+sheet = 'Mock vs Ala up'
 
 
 remove = []
