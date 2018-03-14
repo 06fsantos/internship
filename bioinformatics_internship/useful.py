@@ -27,27 +27,35 @@ def clean_seq(sequence):
     return seq_return 
    
 
-def count_codons(sequence, codon):
+def codon_percentage(sequence, codon):
+    '''
+    input: the desired sequence to analyse
+    output: the percentage of codons within the sequence that are the desired codon
+    
+    counts the number of the desired codon and the total number of codons and calculates a percentage from both
+    does not include START or STOP codons in the total_codon count 
+    '''
     start_codon = 'AUG'
     stop_codon = ['UAA', 'UAG', 'UGA']
     codon_count = 0
+    total_codon = 0
     seq = clean_seq(sequence)
     seq = Seq.Seq(seq, Seq.Alphabet.generic_dna)
     seq = seq.transcribe()
     for i in range(0, len(seq)):
         if seq[i:i+3] == start_codon:
             start_pos = i
-            for j in range(start_pos, len(seq) - 2, 3):
+            for j in range(start_pos+3, len(seq) - 2, 3):
                 if seq[j:j+3] in stop_codon:
                     break
                 elif seq[j:j+3] == codon:
                     codon_count += 1
-                    ########## test stop codon ########
-    return codon_count 
+                    total_codon += 1
+                else:
+                    total_codon += 1
+    percentage = (codon_count/total_codon) * 100
+    return percentage
+          
         
-        
-        
-        
-        
-        
-        
+    
+    
