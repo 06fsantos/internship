@@ -13,15 +13,20 @@ plt.style.use('ggplot')
 
 def percentages(file, sheet, codon):
     df = pd.read_excel(file, sheetname = sheet, index_col = None)
+    if df.iloc[0]['FC'] > 0:
+        df = df.nlargest(n = int((len(df)+1) * 0.1), columns = ['FC'])
+    else:
+        df = df.nsmallest(n = int((len(df)+1) * 0.1), columns = ['FC'])
     symbol = df['Symbol'].copy()
     codon_percent = []
     for gene_id in symbol:
         seq = useful.pull_fasta_sequence(gene_id)
         percentage = useful.codon_percentage(seq, codon)
-        print (gene_id, percentage)
         codon_percent.append(percentage)
     df[codon] = codon_percent
+    print (df.describe())
     return df
+
 
 '''def plot_avg_percent(dataframe_up, dataframe_down):
     '''
@@ -83,11 +88,11 @@ if __name__ == '__main__':
     df_up = pd.DataFrame({'GCU': GCU_up, 'GCC': GCC_up, 'GCA': GCA_up})
     df_down = pd.DataFrame({'GCU': GCU_down, 'GCC': GCC_down, 'GCA': GCA_down})
     
-    file = 'cell_lines_clean.xlsx'
+    file = 'tumours_clean.xlsx'
     title = 'Tumour Cells: Mock vs Ala'
     sheet_up = 'Mock vs Wt up'
-    sheet_down = 'Mock vs Ala down'
+    sheet_down = 'Mock vs Wt down'
     codons = ['GCU', 'GCC', 'GCA']
     codon = 'GCU'
-    print (percentages(file, sheet_down, codon))
+    print (percentages(file, sheet_up, codon))
         

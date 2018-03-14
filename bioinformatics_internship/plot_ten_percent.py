@@ -1,8 +1,9 @@
 '''
-Created on 9 Mar 2018
+Created on 14 Mar 2018
 
 @author: filipe
 '''
+
 import pandas as pd
 import numpy as np
 import useful
@@ -12,6 +13,10 @@ plt.style.use('ggplot')
 
 def percentages(file, sheet, codon):
     df = pd.read_excel(file, sheetname = sheet, index_col = None)
+    if df.iloc[0]['FC'] > 0:
+        df = df.nlargest(n = int((len(df)+1) * 0.1), columns = ['FC'])
+    else:
+        df = df.nsmallest(n = int((len(df)+1) * 0.1), columns = ['FC'])
     symbol = df['Symbol'].copy()
     for codon in codons:
         codon_percent = []
@@ -72,12 +77,11 @@ def plot_avg_percent(dataframe_up, dataframe_down, title):
     ax.legend((up[0], down[0]), ('up', 'down'))
     
     plt.show()
-        
 
 if __name__ == '__main__':
-    file = 'tumours_clean.xlsx'
-    title = 'Tumours: Mock vs Ala'
-    sheet_up = 'Mock vs Ala up'
-    sheet_down = 'Mock vs Ala down'
+    file = 'cell_lines_clean.xlsx'
+    title = 'Cell Lines: Mock vs Wt'
+    sheet_up = 'Mock vs Wt up'
+    sheet_down = 'Mock vs Wt down'
     codons = ['GCU', 'GCC', 'GCA']
     plot_avg_percent(percentages(file, sheet_up, codons), percentages(file, sheet_down, codons), title)
