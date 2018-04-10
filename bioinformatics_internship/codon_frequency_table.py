@@ -52,11 +52,9 @@ def update_dict(file, sheet, codon_dict):
         
 
 if __name__ == '__main__':
-    file = 'individual_symbol_for_test.xlsx'
+    file = 'tumours_clean.xlsx'
     title = 'Cell Lines: Mock vs Wt'
     sheet_up = 'Mock vs Wt up'
     sheet_down = 'Mock vs Wt down'
-    sheet = 'Sheet1'
-    print (update_dict(file, sheet, codon_dict))
-    #print ('upregulated genes: {}'.format(update_dict(file, sheet_up, codon_dict)))
-    #print ('downregulated genes: {}'.format(update_dict(file, sheet_down, codon_dict)))
+    print ('upregulated genes: {}'.format(update_dict(file, sheet_up, codon_dict)))
+    print ('downregulated genes: {}'.format(update_dict(file, sheet_down, codon_dict)))
