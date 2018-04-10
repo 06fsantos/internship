@@ -1,12 +1,10 @@
 '''
-Created on 27 Feb 2018
+Created on 9 Apr 2018
 
 @author: filipe
 '''
 import pandas as pd
-import numpy as np
 import useful
-import matplotlib.pyplot as plt 
 from Bio import SeqIO, Seq
 
 codon_dict = {
@@ -30,7 +28,6 @@ codon_dict = {
 
 
 def update_dict(file, sheet, codon_dict):
-    stop_codons = ['UAA', 'UAG', 'UGA']
     df = pd.read_excel(file, sheetname = sheet, index_col = None)
     if df.iloc[0]['FC'] > 0:
         df = df.nlargest(n = 100, columns = ['FC'])
@@ -43,28 +40,23 @@ def update_dict(file, sheet, codon_dict):
         seq = Seq.Seq(seq, Seq.Alphabet.generic_dna)
         seq = seq.transcribe()
         start_pos = useful.get_start(seq)
-        print (gene_id, len(seq))
-        for j in range(start_pos+3, len(seq) - 2, 3):
+        stop_pos = useful.get_stop(seq)
+        for j in range(start_pos+3, stop_pos - 2, 3):
             for key in codon_dict:
                 if seq[j:j+3] == key:
                     codon_dict[key] += 1
-                    if seq[j:j+3] in stop_codons:
-                        break
-            else:
-                continue
-            break
-        else:
-            continue
-        break
+
     codon_dict.update((k, v / 1000.0) for k, v in codon_dict.items())
     codon_dict.update((k, round(v,3)) for k, v in codon_dict.items())
     return codon_dict
         
 
 if __name__ == '__main__':
-    file = 'tumours_clean.xlsx'
+    file = 'individual_symbol_for_test.xlsx'
     title = 'Cell Lines: Mock vs Wt'
     sheet_up = 'Mock vs Wt up'
     sheet_down = 'Mock vs Wt down'
-    print ('upregulated genes: {}'.format(update_dict(file, sheet_up, codon_dict)))
-    print ('downregulated genes: {}'.format(update_dict(file, sheet_down, codon_dict)))
+    sheet = 'Sheet1'
+    print (update_dict(file, sheet, codon_dict))
+    #print ('upregulated genes: {}'.format(update_dict(file, sheet_up, codon_dict)))
+    #print ('downregulated genes: {}'.format(update_dict(file, sheet_down, codon_dict)))

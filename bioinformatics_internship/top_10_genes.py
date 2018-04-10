@@ -1,5 +1,5 @@
 '''
-Created on 14 Mar 2018
+Created on 15 Mar 2018
 
 @author: filipe
 '''
@@ -12,18 +12,11 @@ import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 
 def percentages(file, sheet, codon):
-    '''
-    input: the file name and worksheet of the excel file containing the Gene IDs 
-           for each Gene, also requires the codon or list of codons to be analysed
-    
-    output: produces a DataFrame containing the additional cloumns of the 
-            percentage frequency for each Codon examined
-    '''
     df = pd.read_excel(file, sheetname = sheet, index_col = None)
     if df.iloc[0]['FC'] > 0:
-        df = df.nlargest(n = int((len(df)+1) * 0.1), columns = ['FC'])
+        df = df.nlargest(n = 10, columns = ['FC'])
     else:
-        df = df.nsmallest(n = int((len(df)+1) * 0.1), columns = ['FC'])
+        df = df.nsmallest(n = 10, columns = ['FC'])
     symbol = df['Symbol'].copy()
     for codon in codons:
         codon_percent = []
@@ -32,6 +25,7 @@ def percentages(file, sheet, codon):
             percentage = useful.codon_percentage(seq, codon)
             codon_percent.append(percentage)
         df[codon] = codon_percent
+    print (df)
     return df
 
 def plot_avg_percent(dataframe_up, dataframe_down, title):
@@ -77,8 +71,8 @@ def plot_avg_percent(dataframe_up, dataframe_down, title):
     down = ax.bar(loc + width, values_down, width = width, color = 'b', yerr = errors_down, alpha = 0.6)
     
     ax.set_title(title)
-    ax.set_ylabel('Average Percentage Frequency of the Codons (%)')
-    ax.set_xlabel('Codons')
+    ax.set_ylabel('codon percentages')
+    ax.set_xlabel('codons')
     ax.set_xticks(loc + width / 2)
     ax.set_xticklabels(names)
     ax.legend((up[0], down[0]), ('up', 'down'))
@@ -87,8 +81,8 @@ def plot_avg_percent(dataframe_up, dataframe_down, title):
 
 if __name__ == '__main__':
     file = 'cell_lines_clean.xlsx'
-    title = 'Cell Lines: Mock vs Wt'
-    sheet_up = 'Mock vs Wt up'
-    sheet_down = 'Mock vs Wt down'
+    title = 'Cell Lines: Mock vs Ala'
+    sheet_up = 'Mock vs Ala up'
+    sheet_down = 'Mock vs Ala down'
     codons = ['GCU', 'GCC', 'GCA']
     plot_avg_percent(percentages(file, sheet_up, codons), percentages(file, sheet_down, codons), title)

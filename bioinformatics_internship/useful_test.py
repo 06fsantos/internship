@@ -77,9 +77,16 @@ ACCGGCAGAAGCTCACCGATGTCCAAGCACAACTGAAGGCAATGCTACAAGCAGCAAAAAGGAGTGACAT\
 GAACTGGATCACTTATTCTCAGTAAACTTCCAAGTTTAACTCCATCTCAAGCTCCAAATTTGACCTGTTA\
 TCTGTTCAATGTTCTTTTCTCGAGCTTCAAGAATCTGATGTAAGAATTCGTACGTTATAGACGATTAAAG\
 TTAGAAACTGATCAAAAACATTAAAAA', msg = 'Error: does not recognise different sequences')
+        
+        
+    def test_get_start(self):
+        sequence = 'AAAUGACGACGACG'
+        self.assertEqual(useful.get_start(sequence), 2, msg = 'Error: incorrect index')
+        sequence = 'AAAUGACGACGAUGACG'
+        self.assertEqual(useful.get_start(sequence), 2, msg = 'Error: not returning index of the first start codon')
     
     def test_codon_percentage(self):
-        sequence = 'AAATGACGACGATTACG'
+        sequence = 'AAATGACGACGATGACG'
         codon = 'ACG'
         self.assertEqual(useful.codon_percentage(sequence, codon), 75.0, msg = 'Error: incorrect count')
         self.assertNotEqual(useful.codon_percentage(sequence, codon), 80.0, msg = 'Error: counting too many codons' )
