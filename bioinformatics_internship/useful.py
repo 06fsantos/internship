@@ -46,6 +46,8 @@ def get_stop(sequence):
         if sequence[i:i+3] in stop_codons:
             stop = i
             break
+        else:
+            stop = len(sequence)
     return stop
     
 def codon_percentage(sequence, codon):

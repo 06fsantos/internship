@@ -68,7 +68,7 @@ def plot_avg_percent(dataframe_up, dataframe_down, title):
 
     width = 0.35 # width of the bars
     n = len(names) # number of distinct desired codons to be plotted
-    loc = np.arange(n)
+    loc = np.arange(n) #produces evenly spaced values within n
     
     fig = plt.figure()
     ax = fig.add_subplot(111)
