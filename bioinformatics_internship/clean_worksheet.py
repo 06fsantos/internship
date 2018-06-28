@@ -3,19 +3,20 @@ Created on 7 Mar 2018
 
 @author: filipe
 ''' 
+
 import pandas as pd
 import useful
 
-file_out = 'cl_Mock_vs_Wt_down.xlsx'
-file_name = 'cell_lines.xlsx'
-sheet = 'Mock vs Wt down'
+file_out = 'cl_individual_sets_mock.xlsx'
+file_name = 'Cell_lines_individual_datasets.xlsx'
+sheet = 'Mock'
 
 
 
 remove = []
 df = pd.read_excel(io = file_name, sheetname = sheet)
 print (df)
-df = df.drop(['Unique ID'], axis = 1)
+#df = df.drop(['Unique ID'], axis = 1)
 symbol = df['Symbol'].copy()
 df = df.set_index('Symbol')
 for i in symbol:
@@ -32,5 +33,5 @@ with pd.ExcelWriter(file_out, engine = 'xlsxwriter') as writer:
     writer.close()
 
 
-   
+
 
