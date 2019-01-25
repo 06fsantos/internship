@@ -101,7 +101,9 @@ def interpret(file, sheet):
     symbol = df['Symbol'].copy()
     
     ######### find minimum and use as baseline for foldchange #########
-    minimum_intensity = df['Average'].min()
+    #minimum_intensity = df['Average'].min()
+    minimum_intensity = 3.650557279586792
+    print (minimum_intensity)
     
     
     for ids in range(len(symbol)):
@@ -113,7 +115,6 @@ def interpret(file, sheet):
         updated_count = count_codon(seq)
         
         fold_change = df['Average'][ids] / minimum_intensity
-        print (fold_change)
 
         updated_count.update((k, v * fold_change) for k, v in updated_count.items())
         count_dict = Counter(count_dict) + Counter(updated_count)
@@ -124,4 +125,4 @@ def interpret(file, sheet):
 
 
 if __name__ == '__main__':
-    print (interpret('cell_lines_all_clean.xlsx', 'Mock vs Wt down'))
+    print (interpret('tumours_individual_sets_clean.xlsx', 'Ala 20001 - 30000'))

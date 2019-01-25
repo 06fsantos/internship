@@ -82,7 +82,7 @@ def plot_avg_percent(dataframe_up, dataframe_down, title):
 if __name__ == '__main__':
     file = 'cell_lines_clean.xlsx'
     title = 'Cell Lines: Mock vs Ala'
-    sheet_up = 'Mock vs Ala up'
-    sheet_down = 'Mock vs Ala down'
+    sheet_up = 'Mock vs Wt up'
+    sheet_down = 'Mock vs Wt down'
     codons = ['GCU', 'GCC', 'GCA']
     plot_avg_percent(percentages(file, sheet_up, codons), percentages(file, sheet_down, codons), title)
