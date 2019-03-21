@@ -13,6 +13,7 @@ plt.style.use('ggplot')
 
 def percentages(file, sheet, codon):
     df = pd.read_excel(file, sheetname = sheet, index_col = None)
+    print (df)
     if df.iloc[0]['FC'] > 0:
         df = df.nlargest(n = 10, columns = ['FC'])
     else:

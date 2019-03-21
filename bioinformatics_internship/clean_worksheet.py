@@ -11,8 +11,6 @@ file_out = 'cl_individual_sets_mock.xlsx'
 file_name = 'Cell_lines_individual_datasets.xlsx'
 sheet = 'Mock'
 
-
-
 remove = []
 df = pd.read_excel(io = file_name, sheetname = sheet)
 print (df)
