@@ -13,6 +13,7 @@ plt.style.use('ggplot')
 def percentages(file, sheet, codon):
     df = pd.read_excel(file, sheetname = sheet, index_col = None)
     symbol = df['Symbol'].copy()
+    
     for codon in codons:
         codon_percent = []
         for gene_id in symbol:
@@ -20,6 +21,7 @@ def percentages(file, sheet, codon):
             percentage = useful.codon_percentage(seq, codon)
             codon_percent.append(percentage)
         df[codon] = codon_percent
+        
     return df
 
 def plot_avg_percent(dataframe_up, dataframe_down, title):

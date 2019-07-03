@@ -19,12 +19,14 @@ def percentages(file, sheet, codon):
     output: produces a DataFrame containing the additional cloumns of the 
             percentage frequency for each Codon examined
     '''
+    
     df = pd.read_excel(file, sheetname = sheet, index_col = None)
     if df.iloc[0]['FC'] > 0:
         df = df.nlargest(n = int((len(df)+1) * 0.1), columns = ['FC'])
     else:
         df = df.nsmallest(n = int((len(df)+1) * 0.1), columns = ['FC'])
     symbol = df['Symbol'].copy()
+    
     for codon in codons:
         codon_percent = []
         for gene_id in symbol:
@@ -66,9 +68,9 @@ def plot_avg_percent(dataframe_up, dataframe_down, title):
     values_down = mean_dict_down.values()
     errors_down = sem_dict_down.values()
 
-    width = 0.35 # width of the bars
-    n = len(names) # number of distinct desired codons to be plotted
-    loc = np.arange(n) #produces evenly spaced values within n
+    width = 0.35  # width of the bars
+    n = len(names)  # number of distinct desired codons to be plotted
+    loc = np.arange(n)  # produces evenly spaced values within n
     
     fig = plt.figure()
     ax = fig.add_subplot(111)

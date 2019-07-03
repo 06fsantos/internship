@@ -29,7 +29,6 @@ codon_dict = {
 
 
 def get_rscu_value(codon_count_dict):
-    print (codon_count_dict)
 
     synonymous_codon_dict = { 
     'CYS': ['UGU', 'UGC'], 
@@ -101,7 +100,7 @@ def interpret(file, sheet):
     symbol = df['Symbol'].copy()
     
     ######### find minimum and use as baseline for foldchange #########
-    #minimum_intensity = df['Average'].min()
+    # minimum_intensity = df['Average'].min()
     minimum_intensity = 3.650557279586792
     print (minimum_intensity)
     

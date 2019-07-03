@@ -38,11 +38,14 @@ def update_dict(file, sheet):
         'UGG':0}
         
     df = pd.read_excel(file, sheetname = sheet, index_col = None)
+    
     if df.iloc[0]['FC'] > 0:
         df = df.nlargest(n = 250, columns = ['FC'])
     else:
         df = df.nsmallest(n = 250, columns = ['FC'])
+        
     symbol = df['Symbol'].copy()
+    
     for gene_id in symbol:
         seq = useful.pull_fasta_sequence(gene_id)
         seq = useful.clean_seq(seq)
@@ -50,6 +53,7 @@ def update_dict(file, sheet):
         seq = seq.transcribe()
         start_pos = useful.get_start(seq)
         stop_pos = useful.get_stop(seq)
+        
         for j in range(start_pos+3, stop_pos - 2, 3):
             for key in codon_dict:
                 if seq[j:j+3] == key:
@@ -65,9 +69,9 @@ def plot_codon_frequency(up_dict, down_dict, title):
     values_up = up_dict.values()
     values_down = down_dict.values()
     
-    width = 0.4 #width of the bars
-    n = len(names)# the number of codons to be plotted 
-    loc = np.arange(n) #produces evenly spaced values within n
+    width = 0.4  # width of the bars
+    n = len(names)  # the number of codons to be plotted 
+    loc = np.arange(n)  # produces evenly spaced values within n
     
     fig = plt.figure(figsize = (15.0, 7.0))
     ax = fig.add_subplot(111)

@@ -9,6 +9,13 @@ from Bio import Entrez, SeqIO, Seq
 def pull_fasta_sequence(gene_id):
     '''
     pull the gene sequence from the NCBI nucleotide databse
+    
+    -------------------------------
+    input:
+        the ID of the gene whose sequence is being pulled from the NCBI database 
+        
+    returns:
+        the nucleotide sequence of the gene 
     '''
     Entrez.email = 'santos.filipe1995@gmail.com'
     with Entrez.efetch(db = 'nucleotide', id = gene_id, rettype = 'fasta', retmode = 'text') as handle:
@@ -17,7 +24,15 @@ def pull_fasta_sequence(gene_id):
 
 def clean_seq(sequence):
     '''
-    removes any letters unless ACTG
+    removes any letters unless ACTG from the sequence ensures no trailing information 
+    attached to the end of the sequence is misinterpreted as a part of the sequence 
+    
+    --------------------------------
+    input:
+        the DNA sequence to be cleaned 
+        
+    returns:
+        the cleaned sequence with only the bases A, T, G and C
     '''
     DNA_BASES = ['A', 'T', 'C', 'G']
     seq_return = ''

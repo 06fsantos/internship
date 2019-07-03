@@ -19,12 +19,14 @@ def count_gc(file, sheet, index_column):
         seq = useful.pull_fasta_sequence(chromosome_id)
         seq = useful.clean_seq(seq)
         seq = Seq.Seq(seq, Seq.Alphabet.generic_dna)
+        
         for nucleotide in seq:
             if nucleotide == 'G' or nucleotide == 'C':
                 gc_count += 1
                 total_count += 1
             else:
                 total_count += 1
+                
     gc_percentage = (gc_count / total_count) * 100 
     return gc_percentage  
     

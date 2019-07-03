@@ -1,13 +1,9 @@
 '''
-Created on 12 Apr 2018
-
-@author: filipe
-'''
-'''
 Created on 9 Apr 2018
 
 @author: filipe
 '''
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -58,11 +54,13 @@ def update_dict(file, sheet):
         seq = seq.transcribe()
         start_pos = useful.get_start(seq)
         stop_pos = useful.get_stop(seq)
+        
         for j in range(start_pos+3, stop_pos - 2, 3):
             for key in codon_dict:
                 if seq[j:j+3] == key:
                     codon_dict[key] += 1
                     codon_count +=1
+                    
     print(codon_count)
 
     codon_dict.update((k, v / codon_count) for k, v in codon_dict.items())
@@ -75,9 +73,9 @@ def plot_codon_frequency(up_dict, down_dict, title):
     values_up = up_dict.values()
     values_down = down_dict.values()
     
-    width = 0.4 #width of the bars
-    n = len(names)# the number of codons to be plotted 
-    loc = np.arange(n) #produces evenly spaced values within n
+    width = 0.4  # width of the bars
+    n = len(names)  # the number of codons to be plotted 
+    loc = np.arange(n)  # produces evenly spaced values within n
     
     fig = plt.figure(figsize = (15.0, 7.0))
     ax = fig.add_subplot(111)

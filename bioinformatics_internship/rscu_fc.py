@@ -105,6 +105,7 @@ def interpret(file, sheet):
     df = pd.read_excel(file, sheetname = sheet , index_col = None)
     symbol = df['Symbol'].copy()
     fold_change = df['FC'].copy()
+    
     if fold_change.min() < 0:
         fold_change = fold_change * (-1.0)
     else:
