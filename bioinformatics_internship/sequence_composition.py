@@ -10,12 +10,17 @@ import useful
 
 def update_dict(gene_id):
     '''
-    Input: The Gene_id of the target sequence
+    isolates every codon in a DNA sequence and returns a dictionary containing the count of each codon
     
-    output: a dictionary containing the codon composition of the gene
+    --------------------------------
+    Input: 
+        gene_id: 
+            The Gene_id of the target sequence
+    
+    Returns: 
+        codon_dict:
+            a dictionary containing the codon composition of the gene
     '''
-    
-    
     codon_dict = {
         'AUA':0, 'AUC':0, 'AUU':0, 'AUG':0,
         'ACA':0, 'ACC':0, 'ACG':0, 'ACU':0, 
@@ -49,7 +54,20 @@ def update_dict(gene_id):
     return codon_dict
 
 def plot_codon_composition(composition_dict, title):
+    '''
+    produces a plot of the codon composition of a DNA sequence 
     
+    ------------------------------------
+    Input:
+        composition_dict:
+            a dictionary containing the codon frequency for every codon 
+        
+        title:
+            the title of the plot
+    
+    Output:
+        produces and displays a bar chart denoting the codon composition of the DNA sequence 
+    '''
     names = composition_dict.keys()
     values = composition_dict.values()
     

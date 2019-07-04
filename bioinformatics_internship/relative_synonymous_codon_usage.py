@@ -29,6 +29,17 @@ codon_dict = {
 
 
 def get_rscu_value(codon_count_dict):
+    '''
+    computes the relative synonymous codon usage 
+    i.e. grouping the codons by amino acid and determining their prevalence within each dataset
+    
+    -----------------------------------
+    Input:
+        codon_count_dict: a dictionary containing the number of times each codon appears in the dataset 
+        
+    Returns:
+        rscu_values: a dictionary containing the rscu values for every codon
+    '''
     synonymous_codon_dict = { 
     'CYS': ['UGU', 'UGC'], 
     'ASP': ['GAU', 'GAC'], 
@@ -76,7 +87,17 @@ def get_rscu_value(codon_count_dict):
             
 
 def count_codon(sequence):
+    '''
+    counts all of the individual codons in a DNA sequence, 
+    only the codons between the start and stop codon are counted  
     
+    -----------------------------
+    Input:
+        sequence: a DNA nucleotide sequence 
+    
+    Returns:
+        codon_count: a dictionary containing the number of times each codon appears in the DNA sequence
+    '''
     codon_count = codon_dict.copy()
     
     start_pos = useful.get_start(sequence)
@@ -91,8 +112,19 @@ def count_codon(sequence):
            
     return codon_count 
 
-def interpret(file, sheet):
+def interpret_rscu(file, sheet):
+    '''
+    computes the rscu values of all codons for all genes in the dataset
     
+    -----------------------------
+    Input:
+        file: the excel file containing the dataset 
+        
+        sheet: the specific worksheet within the excel file to be accessed 
+    
+    Returns:
+        rscu_values: a dictionary containing the rscu values for all codons associated to every amino acid 
+    '''
     count_dict = codon_dict.copy()
     
     df = pd.read_excel(file, sheetname = sheet , index_col = None)
@@ -112,4 +144,4 @@ def interpret(file, sheet):
 
 
 if __name__ == '__main__':
-    print (interpret('cell_lines_clean.xlsx', 'Mock vs Wt down'))
+    print (interpret_rscu('cell_lines_clean.xlsx', 'Mock vs Wt down'))

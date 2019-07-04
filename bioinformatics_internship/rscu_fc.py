@@ -1,9 +1,4 @@
 '''
-Created on 7 Jun 2018
-
-@author: filipe
-'''
-'''
 Created on 23 May 2018
 
 @author: filipe
@@ -34,7 +29,17 @@ codon_dict = {
 
 
 def get_rscu_value(codon_count_dict):
-    print (codon_count_dict)
+    '''
+    computes the relative synonymous codon usage 
+    i.e. grouping the codons by amino acid and determining their prevalence within each dataset
+    
+    -----------------------------------
+    Input:
+        codon_count_dict: a dictionary containing the number of times each codon appears in the dataset 
+        
+    Returns:
+        rscu_values: a dictionary containing the rscu values for every codon
+    '''
 
     synonymous_codon_dict = { 
     'CYS': ['UGU', 'UGC'], 
@@ -83,7 +88,17 @@ def get_rscu_value(codon_count_dict):
             
 
 def count_codon(sequence):
+    '''
+    counts all of the individual codons in a DNA sequence, 
+    only the codons between the start and stop codon are counted  
     
+    -----------------------------
+    Input:
+        sequence: a DNA nucleotide sequence 
+    
+    Returns:
+        codon_count: a dictionary containing the number of times each codon appears in the DNA sequence
+    '''
     codon_count = codon_dict.copy()
     
     start_pos = useful.get_start(sequence)
@@ -99,7 +114,20 @@ def count_codon(sequence):
     return codon_count 
 
 def interpret(file, sheet):
+    '''
+    computes the rscu values of all codons for all genes in the dataset 
     
+    the fold change is accounted for and incorporated into the codon count to produce a more representative rscu value
+    
+    -----------------------------
+    Input:
+        file: the excel file containing the dataset 
+        
+        sheet: the specific worksheet within the excel file to be accessed 
+    
+    Returns:
+        rscu_values: a dictionary containing the rscu values for all codons associated to every amino acid 
+    '''
     count_dict = codon_dict.copy()
     
     df = pd.read_excel(file, sheetname = sheet , index_col = None)
@@ -110,8 +138,6 @@ def interpret(file, sheet):
         fold_change = fold_change * (-1.0)
     else:
         pass
-    print (fold_change)
-    
     
     for id in range(len(symbol)):
         print (symbol[id])

@@ -8,7 +8,20 @@ import pandas as pd
 from Bio import Seq
 
 def count_gc(file, sheet, index_column):
+    '''
+    counts the combined number of G and C nucleotides in the DNA sequence 
     
+    --------------------------------
+    Intput 
+        file: the excel file containing the list of genes to be analysed 
+        
+        sheet: the sheet of the excel file that is to be read 
+        
+        index_column: the column within the excel sheet to be used as the index for the data 
+        
+    Returns 
+        gc_percentage: the percentage of nucleotides that are either G or C
+    '''
     gc_count = 0
     total_count = 0 
     

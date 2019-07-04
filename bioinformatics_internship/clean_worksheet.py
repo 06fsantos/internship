@@ -18,7 +18,14 @@ df = pd.read_excel(io = file_name, sheetname = sheet)
 symbol = df['Symbol'].copy()
 df = df.set_index('Symbol')
 
+'''
+for every gene in the dataset this will attempt to pull the fasta file
+if an error occurs accessing the file, the gene will be added to a remove list
+and removed from the dataset
 
+the genes are removed because not all of the gene IDs in the dataset will be endogenous to the species 
+as some are addded during the preceding experiments - these will not have fasta sequences on the NCBI database
+'''
 for i in symbol:
     try:
         useful.pull_fasta_sequence(i)

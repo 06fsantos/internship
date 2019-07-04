@@ -10,8 +10,24 @@ import matplotlib.pyplot as plt
 
 plt.style.use('ggplot')
 
-def percentages(file, sheet, codon):
-    df = pd.read_excel(file, sheetname = sheet, index_col = None)
+def percentages(file, sheet, codons):
+    '''
+    computes the percentage frequency of a set of predetermined codons for each gene in a dataset 
+    
+    ------------------------------
+    Input: 
+        file: the excel file name 
+        
+        sheet: and worksheet of the excel file containing the Gene IDs for each gene 
+            
+        codons:
+            also requires the codon or list of codons to be analysed
+    
+    Returns: produces a DataFrame containing the additional cloumns of the 
+             percentage frequency for each Codon examined
+    '''
+
+    df = pd.read_excel(file, sheet_name = sheet, index_col = None)
     symbol = df['Symbol'].copy()
     
     for codon in codons:
@@ -26,10 +42,22 @@ def percentages(file, sheet, codon):
 
 def plot_avg_percent(dataframe_up, dataframe_down, title):
     '''
-    input: dataframe containing codon percentage in the upregulated genes and the downregulated genes,
-           also the title of the output plot
+    plots a grouped bar chart for the up- and down-regulated genes
     
-    output: a bar chart displaying differences in codon bias within with up and downregulated genes
+    each codon displays two bars that allow for clear comparison of expression between up and down-regulated genes 
+    -------------------------------
+    input: 
+        dataframe_up: 
+            dataframe containing codon percentage in the up-regulated genes 
+        
+        dataframe down:
+            dataframe containing codon percentage for the down-regulated genes,
+            
+        title:
+            the title of the output plot
+    
+    Returns: 
+        a bar chart displaying differences in codon bias within with up and down-regulated genes
     '''
     mean_dict_up = {}
     sem_dict_up = {}

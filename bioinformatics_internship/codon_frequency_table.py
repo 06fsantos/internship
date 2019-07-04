@@ -12,12 +12,18 @@ import useful
 
 def update_dict(file, sheet):
     '''
-    Input: the file containing worksheets of the upregulated and downregulated genes, and a dictionary containing 
-           all of the codons
+    updates a dictionary of all codon triplets with the number of times that the triplet appears in a dataset 
+    and normalises the values - standard normalisation in this scenario is to divide by 1000
     
-    output: a dictionary containing the codon frequency per 1000 codons
+    ------------------------------
+    Input: 
+        file: the file containing worksheets of the upregulated and downregulated genes, 
+        
+        sheet: the specific sheet within the excel file to be used for analysis 
+    
+    output: 
+        codon_dict: a dictionary containing the codon frequency per 1000 codons
     '''
-    
     
     codon_dict = {
         'AUA':0, 'AUC':0, 'AUU':0, 'AUG':0,
@@ -64,7 +70,20 @@ def update_dict(file, sheet):
     return codon_dict
 
 def plot_codon_frequency(up_dict, down_dict, title):
-
+    '''
+    plots two codon dictionaries together to compare codon frequency values 
+    
+    --------------------------------
+    Input:
+        up_dict: the codon frequency dictionary for upregulated genes 
+        
+        down_dict: the codon frequency dictionary for downregulated genes
+        
+        title: the title of the graph to be plotted 
+    
+    Returns:
+        outputs a graph comparing codon frequencies for the up_dict and down_dict 
+    '''
     names = up_dict.keys()
     values_up = up_dict.values()
     values_down = down_dict.values()
